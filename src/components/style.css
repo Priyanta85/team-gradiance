@@ -7,10 +7,18 @@
   }
   
   
-  .checkDiv {
-    display: flex;
-    align-items: center; /* Center the content horizontally within checkDiv */
-    /* Add any specific styles for checkDiv here if needed */
+  .checkDivn {
+    background-color: rgba(201, 201, 201, 0.3); /* Light gray with low opacity */
+    border-radius: 10px; /* Rounded corners, adjust the value as needed */
+    padding: 10px;
+    margin-bottom: 5px;
+  }
+
+  .checkDivy {
+    background-color: rgba(53, 147, 9, 0.3); /* Light gray with low opacity */
+    border-radius: 10px; /* Rounded corners, adjust the value as needed */
+    padding: 10px;
+    margin-bottom: 5px;
   }
   
   i {

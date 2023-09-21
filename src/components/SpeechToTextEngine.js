@@ -188,48 +188,48 @@ function SpeechToText() {
             
             {
                 check1 ?
-                <div className='checkDiv'>
+                <div className='checkDivy'>
                     <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
                     <span>Mention all our calls are recorded</span>
                 </div>
                 :
-                <div className='checkDiv'>
+                <div className='checkDivn'>
                     <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
                     <span>Mention all our calls are recorded</span>
                 </div>
             }
             {
                 check2 ?
-                <div className='checkDiv'>
+                <div className='checkDivy'>
                     <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
                     <span>Mention that all advice provided is general</span>
                 </div>
                 :
-                <div className='checkDiv'>
+                <div className='checkDivn'>
                     <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
                     <span>Mention that all advice provided is general</span>
                 </div>
             }
             {
                 check3 ?
-                <div className='checkDiv'>
+                <div className='checkDivy'>
                     <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
                     <span>Mention asking about past medical history and current health</span>
                 </div>
                 :
-                <div className='checkDiv'>
+                <div className='checkDivn'>
                     <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
                     <span>Mention asking about past medical history and current health</span>
                 </div>
             }
             {
                 check4 ?
-                <div className='checkDiv'>
+                <div className='checkDivy'>
                     <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
                     <span>Mention product disclosure statement</span>
                 </div>
                 :
-                <div className='checkDiv'>
+                <div className='checkDivn'>
                     <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
                     <span>Mention product disclosure statement</span>
                 </div>
