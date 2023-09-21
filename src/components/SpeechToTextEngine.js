@@ -44,17 +44,6 @@ function SpeechToText() {
   }
 
   useEffect(() => {
-    if(checkTC){
-        if(recognisedText.toLowerCase().includes("this is not financial advice")){
-            setCheck1(true)
-        }
-        setCheck2(true)
-        setCheck3(true)
-        setCheck4(true)
-        setCheck5(true)
-        console.log(check1)
-        console.log("We are here")
-    }
     var constraints = {
       video: false,
       audio: {
@@ -84,7 +73,6 @@ function SpeechToText() {
         stopRecognizer()
       }
     }
-
   }, [checkTC])
 
 
@@ -115,12 +103,20 @@ function SpeechToText() {
 
         setRecognisedText((recognisedText) => {
             const newText = `${recognisedText}${e.result.text} `;
-            if (newText.toLowerCase().includes("terms and conditions")) {
+            if (newText.toLowerCase().includes("our calls are recorded")) {
                 // The phrase is found, log it
-                setCheckTC(true)
-                console.log("Phrase 'terms and conditions' is found in the recognized text!");
+                setCheck1(true)
             }
-            return newText;
+            if(newText.toLowerCase().includes("provide today is general advice")) {
+                setCheck2(true)
+            }
+            if(newText.toLowerCase().includes("questions about your past medical history and current health")) {
+                setCheck3(true)
+            }
+            if(newText.toLowerCase().includes("product disclosure statement")) {
+                setCheck4(true)
+            }
+            return `${recognisedText}${e.result.text} `;
         })
         textRef.current.scrollTop = textRef.current.scrollHeight
 
@@ -155,8 +151,8 @@ function SpeechToText() {
 
   // this function will stop a running speech recognizer
   const stopRecognizer = () => {
-    setIsRecognising(false)
-    recognizer.stopContinuousRecognitionAsync()
+    //setIsRecognising(false)
+    //recognizer.stopContinuousRecognitionAsync()
   }
 
   const export2txt = (text) => {
@@ -189,28 +185,53 @@ function SpeechToText() {
         
         <header className="App-header">
             <div className='checkHolder'>
-            {
-                checkTC ?
-                <div className='checkDiv'>
-                    <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
-                    <span>Read Terms and Conditions</span>
-                </div>
-                :
-                <div className='checkDiv'>
-                    <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
-                    <span>Read Terms and Conditions</span>
-                </div>
-            }
+            
             {
                 check1 ?
                 <div className='checkDiv'>
                     <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
-                    <span>Mention this is not financial advice</span>
+                    <span>Mention all our calls are recorded</span>
                 </div>
                 :
                 <div className='checkDiv'>
                     <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
-                    <span>Mention this is not financial advice</span>
+                    <span>Mention all our calls are recorded</span>
+                </div>
+            }
+            {
+                check2 ?
+                <div className='checkDiv'>
+                    <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
+                    <span>Mention that all advice provided is general</span>
+                </div>
+                :
+                <div className='checkDiv'>
+                    <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
+                    <span>Mention that all advice provided is general</span>
+                </div>
+            }
+            {
+                check3 ?
+                <div className='checkDiv'>
+                    <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
+                    <span>Mention asking about past medical history and current health</span>
+                </div>
+                :
+                <div className='checkDiv'>
+                    <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
+                    <span>Mention asking about past medical history and current health</span>
+                </div>
+            }
+            {
+                check4 ?
+                <div className='checkDiv'>
+                    <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
+                    <span>Mention product disclosure statement</span>
+                </div>
+                :
+                <div className='checkDiv'>
+                    <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
+                    <span>Mention product disclosure statement</span>
                 </div>
             }
             </div>
