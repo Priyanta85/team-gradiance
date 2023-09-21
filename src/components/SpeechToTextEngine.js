@@ -116,7 +116,7 @@ function SpeechToText() {
             if(newText.toLowerCase().includes("product disclosure statement")) {
                 setCheck4(true)
             }
-            return `${recognisedText}${e.result.text} `;
+            return `${recognisedText}`+ "\n" + "-"+ `${e.result.text} `;
         })
         textRef.current.scrollTop = textRef.current.scrollHeight
 
@@ -181,6 +181,16 @@ function SpeechToText() {
   }
 
   return (
+    <div className='wholePage'>
+    <div className='card'>
+            <strong>Incoming Call</strong>
+            <p>Customer: Max Tidswell</p>
+            <p>Customer No: 2345781</p>
+            <p>Interests: Food, Water, Shelter</p>
+            <Button variant={isRecognising ? "secondary" : "primary"} onClick={() => toggleListener()}>
+                    {isRecognising ? 'End Call' : 'Answer Call'}
+            </Button>
+        </div>
     <div className='sideConsole'>
         
         <header className="App-header">
@@ -235,6 +245,7 @@ function SpeechToText() {
                 </div>
             }
             </div>
+        
         <Container className="mt-5">
             <Row>
             <Form>
@@ -248,19 +259,13 @@ function SpeechToText() {
                 />
                 </Form.Group>
                 <Stack direction='horizontal' gap={2}>
-                <Button variant={isRecognising ? "secondary" : "primary"} onClick={() => toggleListener()}>
-                    {isRecognising ? 'Stop' : 'Start'}
-                </Button>
-                {(recognisedText !== "") && !isRecognising &&
-                    <Button variant="secondary" onClick={() => export2txt(recognisedText)}>
-                    Export
-                    </Button>
-                }
+                
                 </Stack>
             </Form>
             </Row>
         </Container>
         </header>
+    </div>
     </div>
   )
 }
