@@ -20,10 +20,16 @@ const speechConfig = SpeechConfig.fromSubscription(API_KEY, API_LOCATION)
 // recognizer must be a global variable
 let recognizer
 
-function Transcription() {
+function SpeechToText() {
 
   const [recognisedText, setRecognisedText] = useState("")
   const [recognisingText, setRecognisingText] = useState("")
+  const [checkTC, setCheckTC] = useState(false)
+  const [check1, setCheck1] = useState(false)
+  const [check2, setCheck2] = useState(false)
+  const [check3, setCheck3] = useState(false)
+  const [check4, setCheck4] = useState(false)
+  const [check5, setCheck5] = useState(false)
 
   const [isRecognising, setIsRecognising] = useState(false)
   const textRef = useRef()
@@ -38,6 +44,11 @@ function Transcription() {
   }
 
   useEffect(() => {
+    if(checkTC){
+        setCheck1(true)
+        console.log(check1)
+        console.log("We are here")
+    }
     var constraints = {
       video: false,
       audio: {
@@ -68,7 +79,7 @@ function Transcription() {
       }
     }
 
-  }, [])
+  }, [checkTC])
 
 
   // this function will create a speech recognizer based on the audio Stream
@@ -97,14 +108,16 @@ function Transcription() {
         // console.log(`RECOGNIZED: Text=${e.result.text}`)
 
         setRecognisedText((recognisedText) => {
-          if (recognisedText === '') {
-            return `${e.result.text} `
-          }
-          else {
-            return `${recognisedText}${e.result.text} `
-          }
+            const newText = `${recognisedText}${e.result.text} `;
+            if (newText.includes("terms and conditions")) {
+                // The phrase is found, log it
+                setCheckTC(true)
+                console.log("Phrase 'terms and conditions' is found in the recognized text!");
+            }
+            return newText;
         })
         textRef.current.scrollTop = textRef.current.scrollHeight
+
       }
       else if (e.result.reason === sdk.ResultReason.NoMatch) {
         console.log("NOMATCH: Speech could not be recognized.")
@@ -179,11 +192,6 @@ function Transcription() {
                 style={{ height: '160px', resize: 'none' }}
                 ref={textRef}
               />
-              <Form.Text className="text-muted">
-                Using Microsoft <a href="javascript:void(0)" onClick={() => openWindow(STT_URL)}>
-                  Azure Speech to Text
-                </a> for Real Time Transcription
-              </Form.Text>
             </Form.Group>
             <Stack direction='horizontal' gap={2}>
               <Button variant={isRecognising ? "secondary" : "primary"} onClick={() => toggleListener()}>
@@ -202,4 +210,4 @@ function Transcription() {
   )
 }
 
-export default Transcription
+export default SpeechToText
