@@ -1,6 +1,6 @@
 import logo from '../mlogo.svg'
 import React, { useEffect, useState, useRef } from 'react'
-
+import './style.css'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Form from 'react-bootstrap/Form'
@@ -45,7 +45,13 @@ function SpeechToText() {
 
   useEffect(() => {
     if(checkTC){
-        setCheck1(true)
+        if(recognisedText.toLowerCase().includes("this is not financial advice")){
+            setCheck1(true)
+        }
+        setCheck2(true)
+        setCheck3(true)
+        setCheck4(true)
+        setCheck5(true)
         console.log(check1)
         console.log("We are here")
     }
@@ -109,7 +115,7 @@ function SpeechToText() {
 
         setRecognisedText((recognisedText) => {
             const newText = `${recognisedText}${e.result.text} `;
-            if (newText.includes("terms and conditions")) {
+            if (newText.toLowerCase().includes("terms and conditions")) {
                 // The phrase is found, log it
                 setCheckTC(true)
                 console.log("Phrase 'terms and conditions' is found in the recognized text!");
@@ -179,34 +185,62 @@ function SpeechToText() {
   }
 
   return (
-
-    <header className="App-header">
-      <Container className="mt-5">
-        <Row>
-          <Form>
-            <Form.Group className="my-5">
-              <Form.Control as="textarea"
-                placeholder="The transcription will go here"
-                value={`${recognisedText}${recognisingText}`}
-                readOnly
-                style={{ height: '160px', resize: 'none' }}
-                ref={textRef}
-              />
-            </Form.Group>
-            <Stack direction='horizontal' gap={2}>
-              <Button variant={isRecognising ? "secondary" : "primary"} onClick={() => toggleListener()}>
-                {isRecognising ? 'Stop' : 'Start'}
-              </Button>
-              {(recognisedText !== "") && !isRecognising &&
-                <Button variant="secondary" onClick={() => export2txt(recognisedText)}>
-                  Export
+    <div className='sideConsole'>
+        
+        <header className="App-header">
+            <div className='checkHolder'>
+            {
+                checkTC ?
+                <div className='checkDiv'>
+                    <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
+                    <span>Read Terms and Conditions</span>
+                </div>
+                :
+                <div className='checkDiv'>
+                    <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
+                    <span>Read Terms and Conditions</span>
+                </div>
+            }
+            {
+                check1 ?
+                <div className='checkDiv'>
+                    <i className="fas fa-check-circle" style={{ color: 'green' }}></i>
+                    <span>Mention this is not financial advice</span>
+                </div>
+                :
+                <div className='checkDiv'>
+                    <i className="fas fa-times-circle" style={{ color: 'red' }}></i>
+                    <span>Mention this is not financial advice</span>
+                </div>
+            }
+            </div>
+        <Container className="mt-5">
+            <Row>
+            <Form>
+                <Form.Group className="my-5">
+                <Form.Control as="textarea"
+                    placeholder="The transcription will go here"
+                    value={`${recognisedText}${recognisingText}`}
+                    readOnly
+                    style={{ height: '160px', resize: 'none' }}
+                    ref={textRef}
+                />
+                </Form.Group>
+                <Stack direction='horizontal' gap={2}>
+                <Button variant={isRecognising ? "secondary" : "primary"} onClick={() => toggleListener()}>
+                    {isRecognising ? 'Stop' : 'Start'}
                 </Button>
-              }
-            </Stack>
-          </Form>
-        </Row>
-      </Container>
-    </header>
+                {(recognisedText !== "") && !isRecognising &&
+                    <Button variant="secondary" onClick={() => export2txt(recognisedText)}>
+                    Export
+                    </Button>
+                }
+                </Stack>
+            </Form>
+            </Row>
+        </Container>
+        </header>
+    </div>
   )
 }
 

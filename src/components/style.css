@@ -1,0 +1,27 @@
+.sideConsole {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Horizontally center children */
+    justify-content: center; /* Vertically center children */
+    height: 100vh; /* Make the container take up the entire viewport height */
+  }
+  
+  
+  .checkDiv {
+    display: flex;
+    align-items: center; /* Center the content horizontally within checkDiv */
+    /* Add any specific styles for checkDiv here if needed */
+  }
+  
+  i {
+    margin-right: 5px; /* Adjust margin as needed for spacing between icon and text */
+  }
+  
+  h4 {
+    margin: 0; /* Remove default margins for the heading */
+  }
+
+  checkHolder {
+    margin-right: 20%;
+    margin-left: 20%;
+  }
